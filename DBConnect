@@ -1,6 +1,17 @@
 import pymysql
+import pandas as pd
+import plotly.express as px
 
-con = pymysql.connect(host='localhost', user='local', password='0000', db='test_db', charset='utf8')
+
+con = pymysql.connect(host='localhost', user='local', password='0000', db='test_db', charset='utf8', autocommit=True, cursorclass=pymysql.cursors.DictCursor)
 
 cur = con.cursor()
-con.close()
+
+sql = "SELECT * FROM test_db"
+cur.execute(sql)
+rows = cur.fetchall()
+
+customers = pd.DataFrame(rows)
+
+fig = px.histogram(customers, x="Test01", y="Test02", color="Type", marginal="rug")
+fig.show()
