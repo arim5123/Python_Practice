@@ -1,0 +1,6 @@
+import pymysql
+
+con = pymysql.connect(host='localhost', user='local', password='0000', db='test_db', charset='utf8')
+
+cur = con.cursor()
+con.close()
