@@ -16,17 +16,14 @@ ndata = name_response.json()
 pdata = price__response.json()
 
 for i in range(0,len(ndata)) :
+    num = str(i+1)
     name_val_01 = str(ndata[i]['korean_name'])
     name_val_02 = str(ndata[i]['english_name'])
-    sql = "INSERT INTO subject_name(k_name, e_name) VALUES (name_val_01, name_val_02);"
-    cur.execute(sql)
-    rows = cur.fetchall()
+    sql = "INSERT INTO subject_name VALUES (%s, %s, %s)"
+    val = (num, name_val_01, name_val_02)
+    cur.execute(sql, val)
 
-select_sql = "SELECT * FROM subject_name"
-cur.execute(select_sql)
-select_rows = cur.fetchall()
-
-for i in select_rows :
-    print(i)
+    result = rows = cur.fetchall()
+    print(result)
 
 con.close()
